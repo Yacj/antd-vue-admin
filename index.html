@@ -4,11 +4,133 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <title>Vitesse Lite</title>
-  <meta name="description" content="Opinionated Vite Starter Template">
+  <title>加载中。。。</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    .loader-main {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: whitesmoke;
+      z-index: 9999999;
+    }
+    .loader {
+      width: 50px;
+      height: 50px;
+      margin: 30px auto 40px;
+      margin-top: 20%;
+      position: relative;
+      z-index: 999999;
+      background-color: whitesmoke;
+    }
+    .loader:before {
+      content: "";
+      width: 50px;
+      height: 7px;
+      border-radius: 50%;
+      background: #000;
+      opacity: 0.1;
+      position: absolute;
+      top: 59px;
+      left: 0;
+      animation: shadow 0.5s linear infinite;
+    }
+    .loader:after {
+      content: "";
+      width: 50px;
+      height: 50px;
+      border-radius: 3px;
+      background-color: #5fb878;
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: loading 0.5s linear infinite;
+    }
+    @-webkit-keyframes loading {
+      17% {
+        border-bottom-right-radius: 3px;
+      }
+
+      25% {
+        transform: translateY(9px) rotate(22.5deg);
+      }
+
+      50% {
+        transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+        border-bottom-right-radius: 40px;
+      }
+
+      75% {
+        transform: translateY(9px) rotate(67.5deg);
+      }
+
+      100% {
+        transform: translateY(0) rotate(90deg);
+      }
+    }
+    @keyframes loading {
+      17% {
+        border-bottom-right-radius: 3px;
+      }
+
+      25% {
+        transform: translateY(9px) rotate(22.5deg);
+      }
+
+      50% {
+        transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+        border-bottom-right-radius: 40px;
+      }
+
+      75% {
+        transform: translateY(9px) rotate(67.5deg);
+      }
+
+      100% {
+        transform: translateY(0) rotate(90deg);
+      }
+    }
+    @-webkit-keyframes shadow {
+      0%,
+      100% {
+        transform: scale(1, 1);
+      }
+
+      50% {
+        transform: scale(1.2, 1);
+      }
+    }
+    @keyframes shadow {
+      0%,
+      100% {
+        transform: scale(1, 1);
+      }
+
+      50% {
+        transform: scale(1.2, 1);
+      }
+    }
+  </style>
 </head>
 <body class="font-sans">
-  <div id="app"></div>
+  <div id="app">
+    <div class="loader-main">
+      <div class="loader"></div>
+    </div>
+  </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
+<div id="versionCheck" style="display: none;position: absolute;z-index: 99;top:0;left:0;right:0;bottom:0;padding:40px;background:rgba(255,255,255,0.9);color: #333;">
+  <h2 style="line-height: 1;margin: 0;font-size: 24px;">当前使用的浏览器内核版本过低 :(</h2>
+  <p style="line-height: 1;margin: 0;font-size: 14px;margin-top: 20px;opacity: 0.8;">当前版本：<span id="versionCheck-type">--</span> <span id="versionCheck-version">--</span></p>
+  <p style="line-height: 1;margin: 0;font-size: 14px;margin-top: 10px;opacity: 0.8;">最低版本要求：Chrome 71+、Firefox 65+、Safari 12+、Edge 97+。</p>
+  <p style="line-height: 1;margin: 0;font-size: 14px;margin-top: 10px;opacity: 0.8;">请升级浏览器版本，或更换现代浏览器，如果你使用的是双核浏览器,请切换到极速/高速模式。</p>
+</div>
+<script type="text/javascript">
+  if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+    document.getElementById('versionCheck-upgrade').style.display = 'block'
+  }
+</script>
 </html>

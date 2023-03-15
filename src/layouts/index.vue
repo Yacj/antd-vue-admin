@@ -1,17 +1,23 @@
 <script setup>
+import LayoutContent from '@/layouts/components/LayoutContent.vue'
+import LayoutHeader from '@/layouts/components/LayoutHeader.vue'
 import LayoutSideBar from '@/layouts/components/LayoutSideBar.vue'
+import { useAppStore } from '@/store/modules/app'
+const appStore = useAppStore()
 </script>
 
 <template>
-  <a-layout>
-    <a-layout-sider>
-      <LayoutSideBar />
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #fff; padding: 0" />
-      <a-layout-content style="margin: 0 16px">
-        <router-view />
-      </a-layout-content>
+  <a-layout
+    has-sider
+  >
+    <LayoutSideBar />
+    <a-layout
+      :class="[
+        appStore.mode === 'pc' ? (appStore.collapsed ? 'ml-20' : 'ml-50') : '',
+      ]"
+    >
+      <LayoutHeader />
+      <LayoutContent />
       <a-layout-footer style="text-align: center">
         Ant Design ©2018 Created by Ant UED
       </a-layout-footer>

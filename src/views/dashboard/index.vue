@@ -6,12 +6,14 @@ const goRouter = () => {
 </script>
 
 <template>
-  <div>
-    12356
+  <a-card class="p-5">
+    <a-pagination :total="50" show-size-changer />
+
+    <a-calendar />
     <a-button @click="goRouter">
       跳转
     </a-button>
-  </div>
+  </a-card>
 </template>
 
 <style lang="scss" scoped>

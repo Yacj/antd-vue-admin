@@ -8,12 +8,28 @@ import { usePermissionStore } from '@/store/modules/permission'
 const permissionStore = usePermissionStore()
 const appStore = useAppStore()
 const collapsed = computed(() => appStore.collapsed)
-const menuList = computed(() => permissionStore.accessRoutes)
+
 const selectedKeys = ref([])
 const openKeys = ref([])
 const route = useRoute()
 const router = useRouter()
 
+const menuList = computed(() => {
+  const list: any = permissionStore.accessRoutes
+  list.sort((a, b) => {
+    if (a.meta.order !== undefined && b.meta.order !== undefined) {
+      return a.meta.order - b.meta.order
+    }
+    else if (a.meta.order !== undefined) {
+      return -1
+    }
+    else if (b.meta.order !== undefined) {
+      return 1
+    }
+    return 0
+  })
+  return list
+})
 const setMenuKeys = (r: RouteLocationNormalized) => {
   set(openKeys, r.matched.length >= 2 ? [r.matched.slice(-2, -1)[0].path] : [])
   set(selectedKeys, [r.meta?.activeMenu || r.path])
@@ -24,6 +40,10 @@ const handleGoRouter = (e) => {
   router.push(key)
 }
 
+const onBreakpoint = (broken: boolean) => {
+  appStore.setCollapsed(broken)
+}
+
 watch(() => route, setMenuKeys, {
   immediate: true,
   deep: true,
@@ -31,7 +51,16 @@ watch(() => route, setMenuKeys, {
 </script>
 
 <template>
-  <a-layout-sider :collapsed="collapsed" :trigger="null" collapsible class="scrollbar">
+  <a-layout-sider
+    :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }"
+    breakpoint="lg"
+    :collapsed-width="appStore.mode === 'pc' ? 80 : 0"
+    :collapsed="collapsed"
+    :trigger="null"
+    collapsible
+    class="scrollbar"
+    @breakpoint="onBreakpoint"
+  >
     <div class="logo" />
     <a-menu
       v-model:selectedKeys="selectedKeys"
@@ -68,5 +97,8 @@ watch(() => route, setMenuKeys, {
   text-align: center;
   line-height: 32px;
   font-size: 18px;
+}
+.ant-layout-sider{
+  z-index: 20;
 }
 </style>

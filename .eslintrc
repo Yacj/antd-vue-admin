@@ -1,6 +1,7 @@
 {
   "extends": "@antfu",
   "rules": {
+    "no-console": "off",
     "curly": ["error", "all"],
     "vue/component-tags-order": ["error", {
       "order": ["route", "script", "template", "style"]
