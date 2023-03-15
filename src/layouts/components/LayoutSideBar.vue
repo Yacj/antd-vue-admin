@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
 import { set } from '@vueuse/core'
+import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 import { useAppStore } from '@/store/modules/app'
 import LayoutSubMenu from '@/layouts/components/LayoutSubMenu.vue'
 import { usePermissionStore } from '@/store/modules/permission'
@@ -73,8 +74,8 @@ watch(() => route, setMenuKeys, {
         <template v-if="!item.meta?.isHidden">
           <template v-if="!item.children">
             <a-menu-item v-if="!item.meta?.isHidden" :key="item.path">
-              <template #icon>
-                <!--              <component :is="item.meta.icon" /> -->
+              <template v-if="item.meta.icon" #icon>
+                <SvgIcon class="relative top-[-2px]" :name="item.meta.icon" color="#fff" size="17" />
               </template>
               {{ item.meta?.title }}
             </a-menu-item>

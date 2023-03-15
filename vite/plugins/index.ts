@@ -1,3 +1,4 @@
+import path from 'node:path'
 import Unocss from 'unocss/vite'
 import type { PluginOption } from 'vite'
 import Pages from 'vite-plugin-pages'
@@ -6,6 +7,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import visualizer from 'rollup-plugin-visualizer'
 import Vue from '@vitejs/plugin-vue'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default function createVitePlugins(viteEnv: Object, isBuild = false) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [
@@ -38,6 +40,11 @@ export default function createVitePlugins(viteEnv: Object, isBuild = false) {
     }),
     // https://github.com/antfu/unocss
     Unocss(),
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/assets/icons/')],
+      symbolId: 'icon-[dir]-[name]',
+      svgoOptions: isBuild,
+    }),
   ]
   if (isBuild) {
     vitePlugins.push(

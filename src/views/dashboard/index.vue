@@ -8,7 +8,6 @@ const goRouter = () => {
 <template>
   <a-card class="p-5">
     <a-pagination :total="50" show-size-changer />
-
     <a-calendar />
     <a-button @click="goRouter">
       跳转

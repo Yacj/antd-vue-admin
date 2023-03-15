@@ -4,7 +4,8 @@ export default {
   component: () => import('@/layouts/index.vue'),
   meta: {
     title: '首页',
-    order: 1
+    order: 1,
+    icon: 'sider_home',
   },
   redirect: '/dashboard/index',
   children: [

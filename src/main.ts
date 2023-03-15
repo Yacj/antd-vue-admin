@@ -8,6 +8,9 @@ import '@unocss/reset/tailwind.css'
 import 'ant-design-vue/dist/antd.css'
 import './styles/main.css'
 import 'nprogress/nprogress.css'
+
+import 'virtual:svg-icons-register'
+
 const app = createApp(App)
 
 app.use(store)

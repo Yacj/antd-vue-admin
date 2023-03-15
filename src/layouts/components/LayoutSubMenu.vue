@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
+
 defineProps({
   menuList: {
     type: Object,
@@ -12,8 +14,8 @@ defineProps({
     <template #title>
       {{ menuList.meta.title }}
     </template>
-    <template #icon>
-      <component :is="menuList.meta.icon" />
+    <template v-if="menuList.meta.icon" #icon>
+      <SvgIcon class="relative top-[-2px]" :name="menuList.meta.icon" color="#fff" size="17" />
     </template>
     <template v-for="item in menuList.children" :key="item.path">
       <template v-if="!item.meta?.isHidden">
