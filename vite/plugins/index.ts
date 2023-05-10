@@ -33,8 +33,7 @@ export default function createVitePlugins(viteEnv: Object, isBuild = false) {
       dirs: ['src/components'], // 配置需要默认导入的自定义组件文件夹，该文件夹下的所有组件都会自动 import
       resolvers: [
         AntDesignVueResolver({
-          importStyle: true, // 是否需要自动随引入加载对应的组件样式，禁用，因为某些二级组件（比如 DateRangePicker）没办法准确地识别正确路径，手动引入全局样式
-          resolveIcons: true, // 可使用@ant-design/icons-vue图标库
+          importStyle: false,
         }),
       ],
     }),

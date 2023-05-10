@@ -17,15 +17,15 @@ const route = useRoute()
 const router = useRouter()
 const appStore = useAppStore()
 const currentPath = ref('')
-const handleTagClick = (path) => {
+function handleTagClick(path) {
   tagsStore.setActiveTag(path)
   router.push(path)
 }
-const handleContextMenu = (e, tagItem) => {
+function handleContextMenu(e, tagItem) {
   currentPath.value = tagItem.path
 }
 
-const handleMenuClick = (val) => {
+function handleMenuClick(val) {
   const index = +val
   switch (index) {
     case 1:
@@ -152,5 +152,8 @@ watch(
 :deep(.ant-tag) {
   font-size: 14px;
   line-height: 27px;
+}
+.tags{
+  border-color: var(--border-color-base) !important;
 }
 </style>

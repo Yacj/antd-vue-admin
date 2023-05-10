@@ -4,9 +4,10 @@ import LayoutTags from '@/layouts/components/LayoutTags.vue'
 import LayoutTools from '@/layouts/components/LayoutTools.vue'
 import LayoutBreadcrumb from '@/layouts/components/LayoutBreadcrumb.vue'
 import { useAppStore } from '@/store/modules/app'
+
 const appStore = useAppStore()
 const isFixed = ref(false)
-const handleCollapsed = () => {
+function handleCollapsed() {
   appStore.setCollapsed(!appStore.collapsed)
 }
 onMounted(() => {
@@ -40,13 +41,13 @@ function onScroll() {
       </div>
       <LayoutTools />
     </div>
-    <LayoutTags class="border-t-1" />
+    <LayoutTags/>
   </a-layout-header>
 </template>
 
 <style lang="scss" scoped>
 .layout-header-container{
-  background: #fff;
+  background: var(--component-background);
   padding: 0;
   height: auto;
   line-height: 55px;

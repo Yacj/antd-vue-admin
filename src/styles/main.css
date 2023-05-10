@@ -10,9 +10,31 @@ body,
 svg {
   vertical-align: initial;
 }
-.ant-modal-content{
-  border-radius:6px;
+.sub-icon{
+  color: var(--link-color) !important;
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 进入dark模式和退出dark模式时，两个图像的位置顺序正好相反 */
+.dark::view-transition-old(root) {
+  z-index: 1;
+}
+.dark::view-transition-new(root) {
+  z-index: 999;
+}
+
+::view-transition-old(root) {
+  z-index: 999;
+}
+::view-transition-new(root) {
+  z-index: 1;
+}
+
 /* transition fade-slide */
 .fade-slide-leave-active,
 .fade-slide-enter-active {

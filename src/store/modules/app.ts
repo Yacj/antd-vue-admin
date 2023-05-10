@@ -8,6 +8,7 @@ export const useAppStore = defineStore({
     reloadFlag: true,
     aliveKeys: {},
     mode: 'pc',
+    colorScheme: 'light',
   }),
   getters: {
   },
@@ -45,6 +46,9 @@ export const useAppStore = defineStore({
       else {
         this.mode = width < 992 ? 'mobile' : 'pc'
       }
+    },
+    setColorScheme(val) {
+      this.colorScheme = val
     },
   },
 })

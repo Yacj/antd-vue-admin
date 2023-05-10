@@ -31,17 +31,17 @@ const menuList = computed(() => {
   })
   return list
 })
-const setMenuKeys = (r: RouteLocationNormalized) => {
+function setMenuKeys(r: RouteLocationNormalized) {
   set(openKeys, r.matched.length >= 2 ? [r.matched.slice(-2, -1)[0].path] : [])
   set(selectedKeys, [r.meta?.activeMenu || r.path])
 }
 
-const handleGoRouter = (e) => {
+function handleGoRouter(e) {
   const { key } = e
   router.push(key)
 }
 
-const onBreakpoint = (broken: boolean) => {
+function onBreakpoint(broken: boolean) {
   appStore.setCollapsed(broken)
 }
 
@@ -59,14 +59,14 @@ watch(() => route, setMenuKeys, {
     :collapsed="collapsed"
     :trigger="null"
     collapsible
-    class="scrollbar"
+    class="scrollbar shadow-md"
+    theme="light"
     @breakpoint="onBreakpoint"
   >
     <div class="logo" />
     <a-menu
       v-model:selectedKeys="selectedKeys"
       v-model:openKeys="openKeys"
-      theme="dark"
       mode="inline"
       @click="handleGoRouter"
     >
@@ -75,7 +75,7 @@ watch(() => route, setMenuKeys, {
           <template v-if="!item.children">
             <a-menu-item v-if="!item.meta?.isHidden" :key="item.path">
               <template v-if="item.meta.icon" #icon>
-                <SvgIcon class="relative top-[-2px]" :name="item.meta.icon" color="#fff" size="17" />
+                <SvgIcon class="relative top-[-2px] sub-icon"  :name="item.meta.icon" size="17" />
               </template>
               {{ item.meta?.title }}
             </a-menu-item>

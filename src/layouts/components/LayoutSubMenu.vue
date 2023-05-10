@@ -15,7 +15,7 @@ defineProps({
       {{ menuList.meta.title }}
     </template>
     <template v-if="menuList.meta.icon" #icon>
-      <SvgIcon class="relative top-[-2px]" :name="menuList.meta.icon" color="#fff" size="17" />
+      <SvgIcon class="relative top-[-2px] sub-icon" :name="menuList.meta.icon"  size="17" />
     </template>
     <template v-for="item in menuList.children" :key="item.path">
       <template v-if="!item.meta?.isHidden">
