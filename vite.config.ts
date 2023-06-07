@@ -5,6 +5,7 @@ import createVitePlugins from './vite/plugins'
 export default ({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
   return defineConfig({
+    base: './',
     resolve: {
       alias: {
         '@': `${path.resolve(__dirname, 'src')}/`,

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { toLogin } from '@/utils'
-import { local } from '@/utils/local'
+import { cache } from '@/utils/cache'
 import { userService } from '@/api/modules/user'
 
 interface LoginData {
@@ -11,8 +11,8 @@ interface LoginData {
 export const useUserStore = defineStore({
   id: 'User',
   state: () => ({
-    token: local.get('token') || '',
-    failure_times: local.get('failure_times') || 0,
+    token: cache.get('token') || '',
+    failure_times: cache.get('failure_times') || 0,
     permission: ['test', 'admin'],
   }),
   getters: {
@@ -25,7 +25,7 @@ export const useUserStore = defineStore({
         }
         else {
           this.token = ''
-          local.remove('token')
+          cache.remove('token')
         }
       }
       return isLogin
@@ -37,14 +37,14 @@ export const useUserStore = defineStore({
       if (res) {
         this.token = res.token
         this.failure_times = Math.ceil(new Date().getTime() / 1000) + 24 * 60 * 60
-        local.set('token', res.token)
-        local.set('failure_times', Math.ceil(new Date().getTime() / 1000) + 24 * 60 * 60)
+        cache.set('token', res.token)
+        cache.set('failure_times', Math.ceil(new Date().getTime() / 1000) + 24 * 60 * 60)
       }
     },
     logout() {
       this.token = ''
-      local.remove('token')
-      local.remove('failure_times')
+      cache.remove('token')
+      cache.remove('failure_times')
       toLogin()
     },
   },

@@ -6,7 +6,6 @@ import router from '@/router'
 // https://unocss.dev/ 原子 css 库
 import '@unocss/reset/tailwind-compat.css' // unocss reset
 import 'virtual:uno.css'
-import 'virtual:unocss-devtools'
 
 // 主体css
 import './styles/main.css'

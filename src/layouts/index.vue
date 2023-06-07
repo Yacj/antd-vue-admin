@@ -3,12 +3,14 @@ import LayoutContent from '@/layouts/components/LayoutContent.vue'
 import LayoutHeader from '@/layouts/components/LayoutHeader.vue'
 import LayoutSideBar from '@/layouts/components/LayoutSideBar.vue'
 import { useAppStore } from '@/store/modules/app'
+
 const appStore = useAppStore()
 </script>
 
 <template>
   <a-layout
     has-sider
+    class="h-full"
   >
     <LayoutSideBar />
     <a-layout

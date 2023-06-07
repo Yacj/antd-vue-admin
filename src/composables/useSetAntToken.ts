@@ -19,7 +19,7 @@ export const useSetAntdToken = createSharedComposable(() => {
         --font-size-base: ${globalToken.fontSize}px;
         --font-size-max: ${Math.max(globalToken.fontSize - 1, 12)}px;
         --font-family: ${globalToken.fontFamily};
-        
+
         --border-color-base: ${globalToken.colorBorder};
         --purple-3: ${globalToken['purple-3']};
         --purple-6: ${globalToken['purple-6']};

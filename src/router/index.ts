@@ -6,7 +6,7 @@ import { setPageTitle } from '@/utils'
 import { constantRoutes } from '@/router/routes'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: constantRoutes,
 })
 const whiteList = ['/login', '/auth-redirect']

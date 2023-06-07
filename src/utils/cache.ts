@@ -2,7 +2,7 @@ const localName = 'antd-vue-admin'
 /**
  * 本地存储
  */
-export const local = {
+export const cache = {
   /**
    * 获取本地存储
    * @param key
