@@ -10,7 +10,7 @@ const appStore = useAppStore()
 <template>
   <a-layout
     has-sider
-    class="h-full"
+    class="min-h-screen"
   >
     <LayoutSideBar />
     <a-layout

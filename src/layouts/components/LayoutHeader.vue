@@ -47,7 +47,7 @@ function onScroll() {
 
 <style lang="scss" scoped>
 .layout-header-container{
-  background: var(--component-background);
+  background: var(--ant-color-border-bg);
   padding: 0;
   height: auto;
   line-height: 55px;

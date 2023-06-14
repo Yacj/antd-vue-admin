@@ -9,12 +9,15 @@ import { usePermissionStore } from '@/store/modules/permission'
 const permissionStore = usePermissionStore()
 const appStore = useAppStore()
 const collapsed = computed(() => appStore.collapsed)
-
+const title = import.meta.env.VITE_APP_TITLE
 const selectedKeys = ref([])
 const openKeys = ref([])
 const route = useRoute()
 const router = useRouter()
-
+const theme = ref('light')
+appStore.$subscribe((mutation, mode) => {
+  theme.value = mode.colorScheme
+})
 const menuList = computed(() => {
   const list: any = permissionStore.accessRoutes
   list.sort((a, b) => {
@@ -59,15 +62,21 @@ watch(() => route, setMenuKeys, {
     :collapsed="collapsed"
     :trigger="null"
     collapsible
-    class="scrollbar shadow-md"
-    theme="light"
+    class="scrollbar "
+    :theme="theme"
     @breakpoint="onBreakpoint"
   >
-    <div class="logo" />
+    <div class="logo flex space-x-2">
+      <SvgIcon name="logo" size="32" />
+      <span v-if="!collapsed" class="text-xl font-bold">
+        {{ title }}
+      </span>
+    </div>
     <a-menu
       v-model:selectedKeys="selectedKeys"
       v-model:openKeys="openKeys"
       mode="inline"
+      :theme="theme"
       @click="handleGoRouter"
     >
       <template v-for="item in menuList" :key="item.path">
@@ -75,7 +84,7 @@ watch(() => route, setMenuKeys, {
           <template v-if="!item.children">
             <a-menu-item v-if="!item.meta?.isHidden" :key="item.path">
               <template v-if="item.meta.icon" #icon>
-                <SvgIcon class="relative top-[-2px] sub-icon"  :name="item.meta.icon" size="17" />
+                <SvgIcon class="relative top-[-2px] sub-icon" :name="item.meta.icon" size="17" />
               </template>
               {{ item.meta?.title }}
             </a-menu-item>
@@ -92,14 +101,16 @@ watch(() => route, setMenuKeys, {
 <style lang="scss" scoped>
 .logo{
   height: 32px;
-  background: rgba(255,255,255,.3);
   margin: 16px;
-  color: #fff;
+  color: var(--ant-color-text-base);
   text-align: center;
   line-height: 32px;
   font-size: 18px;
 }
 .ant-layout-sider{
   z-index: 20;
+}
+.scrollbar{
+  box-shadow: var(--ant-box-shadow);
 }
 </style>

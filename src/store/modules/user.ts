@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
+import storageUtil from '@/utils/cache'
 import { toLogin } from '@/utils'
-import { cache } from '@/utils/cache'
 import { userService } from '@/api/modules/user'
 
 interface LoginData {
@@ -11,8 +11,8 @@ interface LoginData {
 export const useUserStore = defineStore({
   id: 'User',
   state: () => ({
-    token: cache.get('token') || '',
-    failure_times: cache.get('failure_times') || 0,
+    token: storageUtil.getItem('token') || '',
+    failure_times: storageUtil.getItem('failure_times') || 0,
     permission: ['test', 'admin'],
   }),
   getters: {
@@ -20,12 +20,12 @@ export const useUserStore = defineStore({
       let isLogin = false
       if (this.token) {
         const time = new Date().getTime()
-        if (time < parseInt(this.failure_times) * 1000) {
+        if (time < Number.parseInt(this.failure_times) * 1000) {
           isLogin = true
         }
         else {
           this.token = ''
-          cache.remove('token')
+          storageUtil.removeItem('token')
         }
       }
       return isLogin
@@ -37,14 +37,14 @@ export const useUserStore = defineStore({
       if (res) {
         this.token = res.token
         this.failure_times = Math.ceil(new Date().getTime() / 1000) + 24 * 60 * 60
-        cache.set('token', res.token)
-        cache.set('failure_times', Math.ceil(new Date().getTime() / 1000) + 24 * 60 * 60)
+        storageUtil.setItem('token', res.token)
+        storageUtil.setItem('failure_times', Math.ceil(new Date().getTime() / 1000) + 24 * 60 * 60)
       }
     },
     logout() {
       this.token = ''
-      cache.remove('token')
-      cache.remove('failure_times')
+      storageUtil.removeItem('token')
+      storageUtil.removeItem('failure_times')
       toLogin()
     },
   },

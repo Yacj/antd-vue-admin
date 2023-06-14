@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { cache } from '@/utils/cache'
+import storageUtil from '@/utils/cache'
 import router from '@/router'
+
 const WITHOUT_TAG_PATHS = ['/404', '/login']
 interface addTag {
   title: any
@@ -10,8 +11,8 @@ interface addTag {
 export const useTagsStore = defineStore({
   id: 'Tags',
   state: () => ({
-    tags: cache.get('tags') || [],
-    activeTag: cache.get('activeTag') || '',
+    tags: storageUtil.getItem('tags') || [],
+    activeTag: storageUtil.getItem('activeTag') || '',
   }),
   getters: {
     activeIndex() {
@@ -22,11 +23,11 @@ export const useTagsStore = defineStore({
   actions: {
     setActiveTag(path) {
       this.activeTag = path
-      cache.set('activeTag', path)
+      storageUtil.setItem('activeTag', path)
     },
     setTags(tags) {
       this.tags = tags
-      cache.set('tags', tags)
+      storageUtil.setItem('tags', tags)
     },
     addTag(tag: addTag) {
       this.setActiveTag(tag.path)
