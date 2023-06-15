@@ -1,5 +1,3 @@
-const localName = 'antd-vue-admin'
-
 type localType = 'localStorage' | 'sessionStorage'
 const defaultExpire = 1000 * 60 * 60 * 24 * 365 // 过期时间为1年
 interface globalConfig {
@@ -96,36 +94,3 @@ const storageUtil = {
   },
 }
 export default storageUtil
-// /**
-//  * 本地存储
-//  */
-// export const cache = {
-//   /**
-//    * 获取本地存储
-//    * @param key
-//    */
-//   get: (key: string) => {
-//     return JSON.parse(localStorage.getItem(localName + key) || 'null')
-//   },
-//   /**
-//    * 设置本地存储
-//    * @param key
-//    * @param value
-//    */
-//   set: (key: string, value: any) => {
-//     localStorage.setItem(localName + key, JSON.stringify(value))
-//   },
-//   /**
-//    * 删除本地存储
-//    * @param key
-//    */
-//   remove: (key: string) => {
-//     localStorage.removeItem(localName + key)
-//   },
-//   /**
-//    * 清空本地存储
-//    */
-//   clear: () => {
-//     localStorage.clear()
-//   },
-// }

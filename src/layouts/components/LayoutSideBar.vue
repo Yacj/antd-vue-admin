@@ -47,7 +47,13 @@ function handleGoRouter(e) {
 function onBreakpoint(broken: boolean) {
   appStore.setCollapsed(broken)
 }
-
+const siderStyle = computed(() => {
+  return {
+    paddingTop: `${(appStore.layout !== 'side' && !appStore.isMobile) ? appStore.headerHeight : 0}px`,
+    transition: 'background-color 0.3s ease 0s, min-width 0.3s ease 0s, max-width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s',
+    overflow: 'hidden',
+  }
+})
 watch(() => route, setMenuKeys, {
   immediate: true,
   deep: true,
@@ -55,18 +61,26 @@ watch(() => route, setMenuKeys, {
 </script>
 
 <template>
+  <div
+    :style="{
+      width: collapsed ? `${appStore.collapsedWidth}px` : `${appStore.siderWidth}px`,
+      maxWidth: collapsed ? `${appStore.collapsedWidth}px` : `${appStore.siderWidth}px`,
+      minWidth: collapsed ? `${appStore.collapsedWidth}px` : `${appStore.siderWidth}px`,
+      ...siderStyle,
+    }"
+  />
   <a-layout-sider
-    :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }"
-    breakpoint="lg"
-    :collapsed-width="appStore.mode === 'pc' ? 80 : 0"
-    :collapsed="collapsed"
+    :style="siderStyle"
+    :collapsed-width="appStore.collapsedWidth"
+    :collapsed="collapsed && !appStore.isMobile"
     :trigger="null"
     collapsible
     class="scrollbar "
     :theme="theme"
+    :width="appStore.siderWidth"
     @breakpoint="onBreakpoint"
   >
-    <div class="logo flex space-x-2">
+    <div v-if="appStore.layout === 'side'" class="logo flex space-x-2">
       <SvgIcon name="logo" size="32" />
       <span v-if="!collapsed" class="text-xl font-bold">
         {{ title }}
@@ -112,5 +126,10 @@ watch(() => route, setMenuKeys, {
 }
 .scrollbar{
   box-shadow: var(--ant-box-shadow);
+  position: fixed!important;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 100;
 }
 </style>

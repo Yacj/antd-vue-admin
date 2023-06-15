@@ -8,21 +8,16 @@ const appStore = useAppStore()
 </script>
 
 <template>
-  <a-layout
-    has-sider
-    class="min-h-screen"
-  >
-    <LayoutSideBar />
-    <a-layout
-      :class="[
-        appStore.mode === 'pc' ? (appStore.collapsed ? 'ml-20' : 'ml-50') : '',
-      ]"
-    >
-      <LayoutHeader />
-      <LayoutContent />
-      <a-layout-footer style="text-align: center">
-        Ant Design ©2018 Created by Ant UED
-      </a-layout-footer>
+  <a-layout class="min-h-screen">
+    <a-layout>
+      <LayoutSideBar />
+      <a-layout>
+        <LayoutHeader />
+        <LayoutContent />
+        <a-layout-footer style="text-align: center">
+          Ant Design ©2018 Created by Ant UED
+        </a-layout-footer>
+      </a-layout>
     </a-layout>
   </a-layout>
 </template>
