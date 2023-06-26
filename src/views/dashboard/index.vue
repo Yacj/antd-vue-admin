@@ -1,5 +1,5 @@
 <script setup>
-import {message} from "ant-design-vue";
+import { message } from 'ant-design-vue'
 
 const router = useRouter()
 function goRouter() {
@@ -28,5 +28,4 @@ function handleDelCache() {
 </template>
 
 <style lang="scss" scoped>
-
 </style>
