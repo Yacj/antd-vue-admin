@@ -34,7 +34,7 @@ function customOn(eventName: string, callback: () => void) {
  * })
  * @example 接收 useEventBus().customEmit('test')
  */
-export function useEventBus(): UseEventBus {
+export function useEvenBus(): UseEventBus {
   //   销毁事件监听
   onUnmounted(() => {
     emitter.all.clear()

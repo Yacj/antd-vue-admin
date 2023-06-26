@@ -102,7 +102,7 @@ watch(
   >
     <ScrollX
       ref="scrollXRef"
-      class="tags h-13 dark:bg-[#18181c] dark:text-white dark:text-opacity-82 bg-white text-[#333639]"
+      class="tags h-13 dark:bg-[#18181c] dark:text-white dark:text-opacity-82 bg-white text-[#333639] w-full"
     >
       <a-dropdown :trigger="['contextmenu']">
         <a-tabs

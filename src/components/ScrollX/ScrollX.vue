@@ -45,8 +45,12 @@ function handleMouseWheel(e) {
    * @contentWidth 内容的宽度
    */
   if (wheelDelta < 0) {
-    if (wrapperWidth > contentWidth && translateX.value < -10) { return }
-    if (wrapperWidth <= contentWidth && contentWidth + translateX.value - wrapperWidth < -10) { return }
+    if (wrapperWidth > contentWidth && translateX.value < -10) {
+      return
+    }
+    if (wrapperWidth <= contentWidth && contentWidth + translateX.value - wrapperWidth < -10) {
+      return
+    }
   }
   if (wheelDelta > 0 && translateX.value > 10) {
     return
@@ -97,7 +101,7 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="wrapper" class="wrapper relative" @mousewheel.prevent="handleMouseWheel">
+  <div ref="wrapper" class="wrapper relative w-full" @mousewheel.prevent="handleMouseWheel">
     <template v-if="showArrow && isOverflow">
       <div class="left" @click="handleMouseWheel({ wheelDelta: 120 })">
         <ArrowLeftOutlined class="text-base" />
@@ -109,7 +113,7 @@ defineExpose({
 
     <div
       ref="content"
-      class="content"
+      class="content w-full"
       :class="{ overflow: isOverflow && showArrow }"
       :style="{
         transform: `translateX(${translateX}px)`,
