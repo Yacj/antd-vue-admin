@@ -15,7 +15,7 @@ interface BaseResponse<T = any> {
 }
 
 const service = axios.create({
-  baseURL: import.meta.env.DEV && (import.meta.env.VITE_OPEN_PROXY === 'true' ? '/proxy/' : import.meta.env.VITE_APP_API_BASEURL),
+  baseURL: (import.meta.env.DEV && import.meta.env.VITE_OPEN_PROXY === 'true') ? '/proxy/' : import.meta.env.VITE_APP_API_BASEURL,
   timeout: 1000 * 60,
   responseType: 'json',
 })
@@ -24,8 +24,7 @@ service.interceptors.request.use(
     NProgress.start()
     const userStore = useUserStore()
     const token = userStore.token
-    if (token)
-      config.headers!.token = token
+    if (token) { config.headers!.token = token }
 
     return config
   },
@@ -40,8 +39,7 @@ service.interceptors.response.use(
   (response: AxiosResponse) => {
     const { data } = response
     const { code } = data
-    if (typeof code !== 'undefined' && code !== 200)
-      return Promise.reject(new Error('Error'))
+    if (typeof code !== 'undefined' && code !== 200) { return Promise.reject(new Error('Error')) }
 
     NProgress.done()
     return Promise.resolve(data)
@@ -54,7 +52,7 @@ service.interceptors.response.use(
   },
 )
 
-const request = <T = any>(config: CustomAxiosRequestConfig): Promise<T> => {
+function request<T = any>(config: CustomAxiosRequestConfig): Promise<T> {
   return new Promise((resolve, reject) => {
     service
       .request<BaseResponse<T>>(config)
