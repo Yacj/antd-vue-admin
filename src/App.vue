@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { useTheme } from '@/composables/useTheme'
 import TokenProvider from '@/components/TokenProvider/TokenProvider.vue'
 import { useAppStore } from '@/store/modules/app'
 import 'dayjs/locale/zh-cn'
@@ -7,15 +8,36 @@ import { theme } from 'ant-design-vue'
 
 const appStore = useAppStore()
 const appTheme = ref(theme.defaultAlgorithm)
+
 appStore.$subscribe((mutation, mode) => {
   const { colorScheme } = mode
-  if (colorScheme === 'dark') {
+  handleToggleAppTheme(colorScheme)
+})
+
+onMounted(() => {
+  appStore.setMode(document.documentElement.clientWidth)
+  window.onresize = () => {
+    appStore.setMode(document.documentElement.clientWidth)
+  }
+  handleListenScroll()
+})
+
+watchEffect(() => {
+  handleToggleAppTheme(useTheme())
+})
+
+function handleToggleAppTheme(val) {
+  const htmlElement = document.getElementsByTagName('html')[0]
+  if (val === 'dark') {
     appTheme.value = theme.darkAlgorithm
+    htmlElement.classList.add('dark')
   }
   else {
     appTheme.value = theme.defaultAlgorithm
+    htmlElement.classList.remove('dark')
   }
-})
+}
+
 function handleListenScroll() {
   let timer: number | null = null
   const body: HTMLElement = document.body
@@ -29,14 +51,6 @@ function handleListenScroll() {
 
   window.addEventListener('scroll', toggleAttribute)
 }
-
-onMounted(() => {
-  appStore.setMode(document.documentElement.clientWidth)
-  window.onresize = () => {
-    appStore.setMode(document.documentElement.clientWidth)
-  }
-  handleListenScroll()
-})
 </script>
 
 <template>
